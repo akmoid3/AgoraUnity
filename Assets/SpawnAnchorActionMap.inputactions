@@ -1,0 +1,45 @@
+{
+    "name": "SpawnAnchorActionMap",
+    "maps": [
+        {
+            "name": "SpawnAction",
+            "id": "ddcfd11e-9882-43ba-a096-4b1cb02cadb3",
+            "actions": [
+                {
+                    "name": "SpawnAnchor",
+                    "type": "Button",
+                    "id": "d3655850-946a-4b0d-9952-8a79fa1d8433",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "eacd325f-bd0e-4b24-9bdc-c432e271f393",
+                    "path": "<XRController>{RightHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpawnAnchor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a882498f-2fd9-4508-a44e-5d706e2e80cb",
+                    "path": "<XRInputV1::Oculus::MetaQuestTouchPlusControllerOpenXR>{RightHand}/primarybutton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpawnAnchor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

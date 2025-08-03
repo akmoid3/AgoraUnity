@@ -65,6 +65,7 @@ namespace io.agora.rtm.demo
                 rtmClient.OnLockEvent += this.OnLockEvent;
                 rtmClient.OnConnectionStateChanged += this.OnConnectionStateChanged;
                 rtmClient.OnTokenPrivilegeWillExpire += this.OnTokenPrivilegeWillExpire;
+                
 
 
                 //var ret = rtmClient.SetParameters("{\"rtm.link_address0\":[\"183.131.160.141\", 9130]}");

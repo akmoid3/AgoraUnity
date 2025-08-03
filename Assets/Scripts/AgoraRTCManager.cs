@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 public class AgoraRTCManager : MonoBehaviour
 {
-    [Header("_____________Basic Configuration_____________")] [SerializeField]
+    [SerializeField]
     private string appID = "";
 
     [SerializeField] private string token = "";
@@ -74,7 +74,7 @@ public class AgoraRTCManager : MonoBehaviour
     public void JoinChannel()
     {
         RtcEngine.JoinChannel(token, channelName, "", 0);
-        var node = MakeVideoView(0);
+        var node = MakeVideoView(UserManager.instance.UserPrefab,0);
         //CreateLocalVideoCallQualityPanel(node);
     }
 
@@ -190,7 +190,7 @@ public class AgoraRTCManager : MonoBehaviour
 
     #region -- Video Render UI Logic ---
 
-    internal GameObject MakeVideoView(uint uid, string channelId = "")
+    internal GameObject MakeVideoView(GameObject prefab, uint uid, string channelId = "")
     {
         var go = GameObject.Find(uid.ToString());
         if (!ReferenceEquals(go, null))
@@ -200,10 +200,15 @@ public class AgoraRTCManager : MonoBehaviour
 
         // create a GameObject and assign to this new user
         //var videoSurface = MakeImageSurface(uid.ToString());
-        var videoSurface = MakePlaneSurface(uid.ToString());
+        //var videoSurface = MakePlaneSurface(uid.ToString());
 
+        var prefabGO = Instantiate(prefab);
+        prefabGO.name = uid.ToString();
+        var videoSurface = prefabGO.GetComponent<VideoSurface>();
+        
         if (ReferenceEquals(videoSurface, null)) return null;
         // configure videoSurface
+        // DA COMMENTARE NON SERVE SPAWNARE IL VIDEO DA QUEST 3
         if (uid == 0)
         {
             videoSurface.SetForUser(uid, channelId);
@@ -393,8 +398,15 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
     {
         Debug.Log(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
-        if(agoraRtcManager != null || uid != 0)
-            agoraRtcManager.MakeVideoView(uid, agoraRtcManager.GetChannelName());
+        if (agoraRtcManager != null || uid != 0)
+        {
+            var gameObject = agoraRtcManager.MakeVideoView(UserManager.instance.UserPrefab,uid, agoraRtcManager.GetChannelName());
+            
+            User user = new User("", uid.ToString(), gameObject, agoraRtcManager.GetChannelName());
+            
+            UserManager.instance.Users.Add(user);
+            Debug.Log(UserManager.instance.Users);
+        }
         else
         {
             Debug.Log(" NULLLL NULLLL");
