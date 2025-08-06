@@ -32,18 +32,19 @@ public class AnchorSpawner : MonoBehaviour
         xrRayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
         hit.collider.TryGetComponent(out ARPlane arPlane);
         
-        if (!arPlane)
-            return;
+        // if (!arPlane)
+        //     return;
         
         Pose hitPose = new Pose(hit.point, Quaternion.LookRotation(-hit.normal));
 
-        // if (arAnchorManager == null)
-        // {
-        //     GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, hitPose.position,
-        //         hitPose.rotation);
-        //     Debug.Log("ARAnchorManager is null");
-        //     return;
-        // }
+        if (arAnchorManager == null)
+        {
+            GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, hitPose.position,
+                hitPose.rotation);
+            AnchorManager.instance.AddAnchor(prefabSpawned);
+            Debug.Log("ARAnchorManager is null");
+            return;
+        }
 
         var result = await arAnchorManager.TryAddAnchorAsync(hitPose);
 

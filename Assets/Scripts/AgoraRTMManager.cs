@@ -3,35 +3,54 @@ using UnityEngine;
 using Agora.Rtm;
 using System.Threading;
 using System.Threading.Tasks;
+using UnityEngine.Serialization;
 
-public class AgoraRTMManager : MonoBehaviour
+public class AgoraRTMManager
 {
-    [SerializeField] private string appId = "";
-    [SerializeField] private string username = "";
-    [SerializeField] private string userToken = "";
-    [SerializeField] private string channelName = "";
-
+    private string appId = "";
+    private string username = "";
+    private string userToken = "";
+    private string channelName = "";
+    // private AppVariables appVariables;
     private IRtmClient rtmClient;
 
 
-    private bool CheckAppId()
+    public AgoraRTMManager(string appId, string username, string userToken, string channelName)
     {
-        return appId != null && appId != "" && appId.Length > 10;
+        this.appId = appId;
+        this.username = username;
+        this.userToken = userToken;
+        this.channelName = channelName;
     }
 
-    private void Start()
-    {
-        if (CheckAppId())
-        {
-            Init();
-        }
-    }
+    // private bool CheckAppId()
+    // {
+    //     return appId != null && appId != "" && appId.Length > 10;
+    // }
 
-    private async void Init()
+    // private void Start()
+    // {
+    //     appId = appVariables.appID;
+    //     username = appVariables.username;
+    //     userToken = appVariables.rtmToken;
+    //     channelName = appVariables.channelName;
+    //     if (CheckAppId())
+    //     {
+    //         Init();
+    //     }
+    // }
+
+    // private async void Init()
+    // {
+    //     OnInit();
+    //     await OnLoginAsync();
+    //     OnJoin();
+    // }
+
+    public async void JoinChannel(string uid)
     {
-        OnInit();
         await OnLoginAsync();
-        OnJoin();
+        OnJoin(uid);
     }
 
     public void OnInit()
@@ -61,7 +80,7 @@ public class AgoraRTMManager : MonoBehaviour
             rtmClient.OnMessageEvent += this.OnMessageEvent;
             // rtmClient.OnPresenceEvent += this.OnPresenceEvent;
             // rtmClient.OnTopicEvent += this.OnTopicEvent;
-            // rtmClient.OnStorageEvent += this.OnStorageEvent;
+            rtmClient.OnStorageEvent += this.OnStorageEvent;
             // rtmClient.OnLockEvent += this.OnLockEvent;
             // rtmClient.OnConnectionStateChanged += this.OnConnectionStateChanged;
             // rtmClient.OnTokenPrivilegeWillExpire += this.OnTokenPrivilegeWillExpire;
@@ -81,8 +100,7 @@ public class AgoraRTMManager : MonoBehaviour
         }
     }
 
-
-    public async void OnJoin()
+    public async void OnJoin(string uid)
     {
         if (rtmClient == null)
         {
@@ -92,12 +110,45 @@ public class AgoraRTMManager : MonoBehaviour
 
         SubscribeOptions options = new SubscribeOptions()
         {
-            withMessage = true
+            withMessage = true,
+            withPresence = true,
+            withMetadata = true,
+            withLock = true
         };
     
         var result2 = await rtmClient.SubscribeAsync(channelName, options);
         var status2 = result2.Status;
     
+        
+        var metadata = new RtmMetadata();
+        metadata.majorRevision = -1;
+        var apple = new MetadataItem()
+        {
+            key = uid,
+            value = username,
+            revision = -1
+        };
+     
+        metadata.metadataItems = new MetadataItem[] { apple };
+        metadata.metadataItemsSize = 1;
+        var metadataOptions = new MetadataOptions()
+        {
+            recordUserId = true,
+            recordTs = true
+        };
+        var lockName = "";
+
+        var status = await rtmClient.GetStorage().SetChannelMetadataAsync(channelName, RTM_CHANNEL_TYPE.MESSAGE, metadata, metadataOptions, lockName);
+        
+        if (status.Status.Error)
+        {
+            Debug.Log(string.Format("{0} is failed, ErrorCode: , due to: ", status.Status.ErrorCode));
+        }
+        else
+        {
+            Debug.Log(string.Format("Set Channel :{0} metadata success! Channel Type is :{1}! ", status.Response.ChannelName, status.Response.ChannelType));
+        }
+
         if (status2.Error)
         {
             Debug.LogError($"Subscribe failed: {status2.ErrorCode} - {status2.Reason}");
@@ -130,7 +181,11 @@ public class AgoraRTMManager : MonoBehaviour
             rtmClient = null;
         }
     }
-
+    
+    private void OnStorageEvent(StorageEvent @event)
+    {
+        
+    }
     private void OnMessageEvent(MessageEvent eve)
     {
         var channelName = eve.channelName;
@@ -155,6 +210,8 @@ public class AgoraRTMManager : MonoBehaviour
             Debug.Log(string.Format("The channel type is {0}", channelType));
         }
     }
+    
+    
 
 
     public async Task OnLoginAsync()
@@ -189,7 +246,7 @@ public class AgoraRTMManager : MonoBehaviour
         Debug.Log(string.Format("RtmClient.Logout ret:{0} ", ret.Status.ErrorCode));
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
         OnLeave();
         OnLogoutAsync();

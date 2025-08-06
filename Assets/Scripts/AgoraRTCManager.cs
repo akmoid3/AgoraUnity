@@ -7,7 +7,7 @@ using Agora.Rtc;
 using io.agora.rtc.demo;
 using System.Collections.Generic;
 
-public class AgoraRTCManager : MonoBehaviour
+public class AgoraRTCManager
 {
     [SerializeField]
     private string appID = "";
@@ -19,17 +19,28 @@ public class AgoraRTCManager : MonoBehaviour
     internal IRtcEngine RtcEngine = null;
 
     private DeviceInfo[] _videoDeviceInfos;
-
+    
+    [SerializeField] private AppVariables appVariables;
 
     // Use this for initialization
-    private void Start()
+    public AgoraRTCManager(string appID, string token, string channelName)
     {
-        if (CheckAppId())
-        {
-            RtcEngine = Agora.Rtc.RtcEngine.CreateAgoraRtcEngine();
-            InitEngine();
-        }
+        this.appID = appID;
+        this.token = token;
+        this.channelName = channelName;
     }
+
+    // private void Start()
+    // {
+    //     appID = appVariables.appID;
+    //     token = appVariables.tokenChannel;
+    //     channelName = appVariables.channelName;
+    //     if (CheckAppId())
+    //     {
+    //         RtcEngine = Agora.Rtc.RtcEngine.CreateAgoraRtcEngine();
+    //         InitEngine();
+    //     }
+    // }
 
     // Update is called once per frame
     private void Update()
@@ -49,6 +60,7 @@ public class AgoraRTCManager : MonoBehaviour
 
     public void InitEngine()
     {
+        RtcEngine = Agora.Rtc.RtcEngine.CreateAgoraRtcEngine();
         UserEventHandler handler = new UserEventHandler(this);
         RtcEngineContext context = new RtcEngineContext();
         context.appId = appID;
@@ -71,10 +83,10 @@ public class AgoraRTCManager : MonoBehaviour
         RtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
     }
 
-    public void JoinChannel()
+    public void JoinChannel(uint uid)
     {
-        RtcEngine.JoinChannel(token, channelName, "", 0);
-        var node = MakeVideoView(UserManager.instance.UserPrefab,0);
+        RtcEngine.JoinChannel(token, channelName, "", uid);
+        //var node = MakeVideoView(UserManager.instance.UserPrefab,0);
         //CreateLocalVideoCallQualityPanel(node);
     }
 
@@ -162,7 +174,7 @@ public class AgoraRTCManager : MonoBehaviour
 
     #endregion
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
         Debug.Log("OnDestroy");
         if (RtcEngine == null) return;
@@ -172,7 +184,7 @@ public class AgoraRTCManager : MonoBehaviour
         RtcEngine = null;
     }
 
-    void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
         if (RtcEngine != null)
         {
@@ -190,56 +202,56 @@ public class AgoraRTCManager : MonoBehaviour
 
     #region -- Video Render UI Logic ---
 
-    internal GameObject MakeVideoView(GameObject prefab, uint uid, string channelId = "")
-    {
-        var go = GameObject.Find(uid.ToString());
-        if (!ReferenceEquals(go, null))
-        {
-            return go; // reuse
-        }
-
-        // create a GameObject and assign to this new user
-        //var videoSurface = MakeImageSurface(uid.ToString());
-        //var videoSurface = MakePlaneSurface(uid.ToString());
-
-        var prefabGO = Instantiate(prefab);
-        prefabGO.name = uid.ToString();
-        var videoSurface = prefabGO.GetComponent<VideoSurface>();
-        
-        if (ReferenceEquals(videoSurface, null)) return null;
-        // configure videoSurface
-        // DA COMMENTARE NON SERVE SPAWNARE IL VIDEO DA QUEST 3
-        if (uid == 0)
-        {
-            videoSurface.SetForUser(uid, channelId);
-        }
-        else
-        {
-            videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-        }
-
-        videoSurface.OnTextureSizeModify += (int width, int height) =>
-        {
-            var transform = videoSurface.GetComponent<RectTransform>();
-            if (transform)
-            {
-                //If render in RawImage. just set rawImage size.
-                transform.sizeDelta = new Vector2(width / 2, height / 2);
-                transform.localScale = Vector3.one;
-            }
-            else
-            {
-                //If render in MeshRenderer, just set localSize with MeshRenderer
-                float scale = (float)height / (float)width;
-                videoSurface.transform.localScale = new Vector3(-1, 1, scale);
-            }
-
-            Debug.Log("OnTextureSizeModify: " + width + "  " + height);
-        };
-
-        videoSurface.SetEnable(true);
-        return videoSurface.gameObject;
-    }
+    // internal GameObject MakeVideoView(GameObject prefab, uint uid, string channelId = "")
+    // {
+    //     var go = GameObject.Find(uid.ToString());
+    //     if (!ReferenceEquals(go, null))
+    //     {
+    //         return go; // reuse
+    //     }
+    //
+    //     // create a GameObject and assign to this new user
+    //     //var videoSurface = MakeImageSurface(uid.ToString());
+    //     //var videoSurface = MakePlaneSurface(uid.ToString());
+    //
+    //     var prefabGO = Instantiate(prefab);
+    //     prefabGO.name = uid.ToString();
+    //     var videoSurface = prefabGO.GetComponent<VideoSurface>();
+    //     
+    //     if (ReferenceEquals(videoSurface, null)) return null;
+    //     // configure videoSurface
+    //     // DA COMMENTARE NON SERVE SPAWNARE IL VIDEO DA QUEST 3
+    //     if (uid == 0)
+    //     {
+    //         videoSurface.SetForUser(uid, channelId);
+    //     }
+    //     else
+    //     {
+    //         videoSurface.SetForUser(uid, channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+    //     }
+    //
+    //     videoSurface.OnTextureSizeModify += (int width, int height) =>
+    //     {
+    //         var transform = videoSurface.GetComponent<RectTransform>();
+    //         if (transform)
+    //         {
+    //             //If render in RawImage. just set rawImage size.
+    //             transform.sizeDelta = new Vector2(width / 2, height / 2);
+    //             transform.localScale = Vector3.one;
+    //         }
+    //         else
+    //         {
+    //             //If render in MeshRenderer, just set localSize with MeshRenderer
+    //             float scale = (float)height / (float)width;
+    //             videoSurface.transform.localScale = new Vector3(-1, 1, scale);
+    //         }
+    //
+    //         Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+    //     };
+    //
+    //     videoSurface.SetEnable(true);
+    //     return videoSurface.gameObject;
+    // }
 
     // VIDEO TYPE 1: 3D Object
     private static VideoSurface MakePlaneSurface(string goName)
@@ -305,14 +317,14 @@ public class AgoraRTCManager : MonoBehaviour
         return videoSurface;
     }
 
-    internal void DestroyVideoView(uint uid)
-    {
-        var go = GameObject.Find(uid.ToString());
-        if (!ReferenceEquals(go, null))
-        {
-            Destroy(go);
-        }
-    }
+    // internal void DestroyVideoView(uint uid)
+    // {
+    //     var go = GameObject.Find(uid.ToString());
+    //     if (!ReferenceEquals(go, null))
+    //     {
+    //         Destroy(go);
+    //     }
+    // }
 
     #endregion
 
@@ -400,12 +412,11 @@ internal class UserEventHandler : IRtcEngineEventHandler
         Debug.Log(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
         if (agoraRtcManager != null || uid != 0)
         {
-            var gameObject = agoraRtcManager.MakeVideoView(UserManager.instance.UserPrefab,uid, agoraRtcManager.GetChannelName());
+            //var gameObject = agoraRtcManager.MakeVideoView(UserManager.instance.UserPrefab,uid, agoraRtcManager.GetChannelName());
             
-            User user = new User("", uid.ToString(), gameObject, agoraRtcManager.GetChannelName());
+            User user = new User("", uid.ToString(), null, agoraRtcManager.GetChannelName());
             
-            UserManager.instance.Users.Add(user);
-            Debug.Log(UserManager.instance.Users);
+            UserManager.instance.AddUser(user);
         }
         else
         {
@@ -416,9 +427,9 @@ internal class UserEventHandler : IRtcEngineEventHandler
 
     public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
     {
-        Debug.Log(string.Format("OnUserOffLine uid: ${0}, reason: ${1}", uid,
-            (int)reason));
-        agoraRtcManager.DestroyVideoView(uid);
+        // Debug.Log(string.Format("OnUserOffLine uid: ${0}, reason: ${1}", uid,
+        //     (int)reason));
+        // agoraRtcManager.DestroyVideoView(uid);
     }
 
     //Quality monitoring during calls
