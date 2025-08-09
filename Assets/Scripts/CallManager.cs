@@ -1,58 +1,109 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using Random = UnityEngine.Random;
+
+[Serializable]
+public class TokenResponse
+{
+    public string channelName;
+    public int uid;
+    public string account;
+    public string token;
+}
 
 public class CallManager : MonoBehaviour
 {
     private AgoraRTCManager agoraRTCManager;
     private AgoraRTMManager agoraRTMManager;
     private uint uid;
+    private string channelToken;
+    private string rtmToken;
     
     [SerializeField] private AppVariables appVariables;
 
-    
+    [SerializeField] private string serverBaseUrl = "http://192.168.1.7:5000"; 
+
     private bool CheckAppId()
     {
         string appId = appVariables.appID;
-        return appId != null && appId != "" && appId.Length > 10;
+        return !string.IsNullOrEmpty(appId) && appId.Length > 10;
     }
 
     private void InitializeEngines()
     {
-        if(!CheckAppId())
+        if (!CheckAppId())
             return;
-        
-        agoraRTCManager = new AgoraRTCManager(appVariables.appID,appVariables.tokenChannel,appVariables.channelName);
-        agoraRTMManager = new AgoraRTMManager(appVariables.appID,appVariables.username,appVariables.rtmToken, appVariables.channelName);
-        
+
+        agoraRTCManager = new AgoraRTCManager(appVariables.appID, channelToken, appVariables.channelName);
+        agoraRTMManager = new AgoraRTMManager(appVariables.appID, appVariables.username, rtmToken, appVariables.channelName);
+
         agoraRTCManager.InitEngine();
         agoraRTMManager.OnInit();
     }
 
     public void JoinCall()
     {
+        StartCoroutine(FetchTokensAndJoin());
+    }
+
+    private IEnumerator FetchTokensAndJoin()
+    {
+        // RTC Token
+        string rtcUrl = $"{serverBaseUrl}/token/uid?channelName={appVariables.channelName}&uid={uid}";
+        UnityWebRequest rtcRequest = UnityWebRequest.Get(rtcUrl);
+        yield return rtcRequest.SendWebRequest();
+
+        if (rtcRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError($"Errore richiesta RTC token: {rtcRequest.error}");
+            yield break;
+        }
+
+        TokenResponse rtcData = JsonUtility.FromJson<TokenResponse>(rtcRequest.downloadHandler.text);
+        channelToken = rtcData.token;
+
+        // RTM Token
+        string rtmUrl = $"{serverBaseUrl}/token/rtm?channelName={appVariables.channelName}&account={appVariables.username}";
+        UnityWebRequest rtmRequest = UnityWebRequest.Get(rtmUrl);
+        yield return rtmRequest.SendWebRequest();
+
+        if (rtmRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError($"Errore richiesta RTM token: {rtmRequest.error}");
+            yield break;
+        }
+
+        TokenResponse rtmData = JsonUtility.FromJson<TokenResponse>(rtmRequest.downloadHandler.text);
+        rtmToken = rtmData.token;
+
+        Debug.Log("Token RTC e RTM ricevuti correttamente");
+
+        InitializeEngines();
         agoraRTCManager.JoinChannel(uid);
+        yield return new WaitForSeconds(1f);
         agoraRTMManager.JoinChannel(uid.ToString());
     }
 
     private void Start()
     {
-        InitializeEngines();
-        uid = (uint) UnityEngine.Random.Range(0, int.MaxValue);
-
+        uid = (uint) Random.Range(0, int.MaxValue);
     }
 
+    public void LeaveCall()
+    {
+        OnApplicationQuit();
+        UserManager.instance.OnCallQuit();
+        AnchorManager.instance.OnCallQuit();
+
+    }
+    
     private void OnApplicationQuit()
     {
-        agoraRTCManager.OnApplicationQuit();
-        agoraRTMManager.OnDestroy();
+        if (agoraRTCManager != null) agoraRTCManager.OnApplicationQuit();
+        if (agoraRTMManager != null) agoraRTMManager.OnDestroy(uid.ToString());
+        UserManager.instance.OnCallQuit();
+        AnchorManager.instance.OnCallQuit();
     }
-
-    private void Update()
-    {
-        // PermissionHelper.RequestMicrophontPermission();
-        // //PermissionHelper.RequestCameraPermission();
-    }
-    
-    
 }

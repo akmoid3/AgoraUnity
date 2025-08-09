@@ -5,7 +5,5 @@ public class AppVariables : ScriptableObject
 {
     public string username;
     public string appID;
-    public string tokenChannel;
     public string channelName;
-    public string rtmToken;
 }

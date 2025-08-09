@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215308b214c5c9c41bb8d4be3f8837c1, type: 3}
   m_Name: AppVariables
   m_EditorClassIdentifier: 
-  username: prova2
+  username: professore
   appID: 4703d12de1af47eb94294a750641a314
-  tokenChannel: 007eJxTYKi/OsGyyfTF6z/3XnCvMjjzeeO3BH7rSztFw7cfz/q6h0tcgcHE3MA4xdAoJdUwMc3EPDXJ0sTI0iTR3NTAzMQw0djQ5ETF5IyGQEaGI1OOMzEyQCCIz8sQmpdZUhnvnJGYl5eaw8AAAHEwJbc=
-  channelName: Unity_Channel
-  rtmToken: 007eJxSYMgJSBN0a/Rdurc0PUKr4PymdweWveFfmNy878OFUFX/39sVGEzMDYxTDI1SUg0T00zMU5MsTYwsTRLNTQ3MTAwTjQ1N3lVMzmgIZGTo7V3DzMTAyADCID4LmORlCM3LLKmMd85IzMtLzWFjKCjKL0s0AimCKIOJAAIAAP//WJUqqw==
+  channelName: prova1

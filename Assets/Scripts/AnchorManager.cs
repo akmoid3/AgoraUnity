@@ -1,75 +1,123 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Agora.Rtc;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 public class AnchorManager : MonoBehaviour
 {
-   public static AnchorManager instance;
+    public static AnchorManager instance;
 
-   [SerializeField] List<GameObject> anchors = new List<GameObject>();
-   private Queue<GameObject> FreeAnchors = new Queue<GameObject>();
+    [SerializeField] List<GameObject> anchors = new List<GameObject>();
+    private List<GameObject> FreeAnchors = new List<GameObject>();
 
-   private void Start()
-   {
-      if(instance == null)
-         instance = this;
-      else
-      {
-         Destroy(this);
-      }
-   }
+    private void Start()
+    {
+        if (instance == null)
+            instance = this;
+        else
+        {
+            Destroy(this);
+        }
+    }
 
-   public void AddAnchor(GameObject anchor)
-   {
-      anchors.Add(anchor);
-      FreeAnchors.Enqueue(anchor);
-      TryAssignAnchorToWaitingUser();
-   }
+    public void AddAnchor(GameObject anchor)
+    {
+        anchors.Add(anchor);
+        FreeAnchors.Add(anchor);
+        TryAssignAnchorToWaitingUser();
+    }
 
-   private void TryAssignAnchorToWaitingUser()
-   {
-      Queue<User> waitingUsers =  UserManager.instance.WaitingUsers;
-      while (FreeAnchors.Count > 0 && waitingUsers.Count > 0)
-      {
-         GameObject anchor = FreeAnchors.Dequeue();
-         User user = waitingUsers.Dequeue();
-         user.Anchor = anchor;
-         SetVideo(user);
-      }
-   }
+    private void TryAssignAnchorToWaitingUser()
+    {
+        List<User> waitingUsers = UserManager.instance.WaitingUsers;
+        while (FreeAnchors.Count > 0 && waitingUsers.Count > 0)
+        {
+            GameObject anchor = FreeAnchors[0];
+            FreeAnchors.RemoveAt(0);
 
-   public void AssignAnchorToUser(User user)
-   {
-      if (FreeAnchors.Count > 0)
-      {
-         GameObject anchor = FreeAnchors.Dequeue();
-         user.Anchor = anchor;
-         SetVideo(user);
-      }
-      else
-      {
-         UserManager.instance.AddWaitingUser(user);
-      }
-   }
+            User user = waitingUsers[0];
+            waitingUsers.RemoveAt(0);
 
-   private void SetVideo(User user)
-   {
-      VideoSurface videoSurface = user.Anchor.GetComponent<VideoSurface>();
-      string idString = user.RtcID;
-      if (uint.TryParse(idString, out uint rtcId))
-      {
-         videoSurface.SetForUser(rtcId, user.ChannelName, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
-      }
-      else
-      {
-         Debug.LogError($"Failed to parse RtcID '{idString}' to uint.");
-      }
-   }
+            user.Anchor = anchor;
+            SetVideo(user);
+        }
+    }
 
-   public void RemoveAnchor(GameObject anchor)
-   {
-      anchors.Remove(anchor);
-   }
+
+    public void AssignAnchorToUser(User user)
+    {
+        if (FreeAnchors.Count > 0)
+        {
+            GameObject anchor = FreeAnchors[0];
+            FreeAnchors.RemoveAt(0);
+
+            user.Anchor = anchor;
+
+            SetVideo(user);
+        }
+        else
+        {
+            UserManager.instance.AddWaitingUser(user);
+        }
+    }
+
+    private void SetVideo(User user)
+    {
+        VideoSurface videoSurface = user.Anchor.GetComponentInChildren<VideoSurface>();
+        string idString = user.RtcID;
+        if (uint.TryParse(idString, out uint rtcId))
+        {
+            videoSurface.SetForUser(rtcId, user.ChannelName, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+            videoSurface.OnTextureSizeModify += (int width, int height) =>
+            {
+                var transform = videoSurface.GetComponent<RectTransform>();
+                if (transform)
+                {
+                    //If render in RawImage. just set rawImage size.
+                    transform.sizeDelta = new Vector2(width / 2, height / 2);
+                    transform.localScale = Vector3.one;
+                }
+                else
+                {
+                    // //If render in MeshRenderer, just set localSize with MeshRenderer
+                    // float scale = (float)height / (float)width;
+                    // videoSurface.transform.localScale = new Vector3(-1, 1, scale);
+                }
+
+                Debug.Log("OnTextureSizeModify: " + width + "  " + height);
+            };
+        }
+        else
+        {
+            Debug.LogError($"Failed to parse RtcID '{idString}' to uint.");
+        }
+    }
+
+    public void RemoveAnchor(GameObject anchor)
+    {
+        var assignedUser = UserManager.instance.Users.Find(u => u.Anchor == anchor);
+        if (assignedUser != null)
+        {
+            assignedUser.Anchor = null;
+            UserManager.instance.AddWaitingUser(assignedUser);
+        }
+
+        anchors.Remove(anchor);
+        FreeAnchors.Remove(anchor);
+        Destroy(anchor);
+    }
+
+    public void OnCallQuit()
+    {
+        foreach (var anchor in anchors)
+        {
+            Destroy(anchor);
+        }
+
+        anchors.Clear();
+        FreeAnchors.Clear();
+    }
 }

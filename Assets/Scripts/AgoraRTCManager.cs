@@ -398,7 +398,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
 
     public override void OnLeaveChannel(RtcConnection connection, RtcStats stats)
     {
-        Debug.Log("OnLeaveChannel");
+        Debug.Log("OnLeaveChannel" + connection.localUid);
     }
 
     public override void OnClientRoleChanged(RtcConnection connection, CLIENT_ROLE_TYPE oldRole,
@@ -427,8 +427,18 @@ internal class UserEventHandler : IRtcEngineEventHandler
 
     public override void OnUserOffline(RtcConnection connection, uint uid, USER_OFFLINE_REASON_TYPE reason)
     {
-        // Debug.Log(string.Format("OnUserOffLine uid: ${0}, reason: ${1}", uid,
-        //     (int)reason));
+        Debug.Log(string.Format("OnUserOffLine uid: ${0}, reason: ${1}", uid,
+            (int)reason));
+        User user = UserManager.instance.GetUser(uid.ToString());
+
+        if (user != null)
+        {
+            if (user.Anchor != null)
+            {
+                UserManager.instance.RemoveUser(user);
+                AnchorManager.instance.RemoveAnchor(user.Anchor);                
+            }
+        }
         // agoraRtcManager.DestroyVideoView(uid);
     }
 

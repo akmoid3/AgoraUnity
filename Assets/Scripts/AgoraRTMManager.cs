@@ -140,6 +140,7 @@ public class AgoraRTMManager
 
         var status = await rtmClient.GetStorage().SetChannelMetadataAsync(channelName, RTM_CHANNEL_TYPE.MESSAGE, metadata, metadataOptions, lockName);
         
+        FetchChannelMetadata();
         if (status.Status.Error)
         {
             Debug.Log(string.Format("{0} is failed, ErrorCode: , due to: ", status.Status.ErrorCode));
@@ -159,10 +160,31 @@ public class AgoraRTMManager
         }
     }
 
-    public async void OnLeave()
+    public async void OnLeave(string uid)
     {
         if (rtmClient != null)
         {
+            var metadata = new RtmMetadata();
+            metadata.majorRevision = -1;
+            var metadataItem = new MetadataItem()
+            {
+                key = uid,
+                revision = -1
+            };
+            metadata.metadataItems = new MetadataItem[] { metadataItem };
+            metadata.metadataItemsSize = 1;
+            var options = new MetadataOptions() { };
+
+            var result1 = await rtmClient.GetStorage().RemoveChannelMetadataAsync(channelName, RTM_CHANNEL_TYPE.MESSAGE, metadata,options, "");
+            if (result1.Status.Error)
+            {
+                Debug.Log(string.Format("{0} is failed, ErrorCode: {1}, due to: {2}", result1.Status.Operation, result1.Status.ErrorCode, result1.Status.Reason));
+            }
+            else
+            {
+                Debug.Log(string.Format("Remove Channel :{0} metadata success! Channel Type is :{1}! ", result1.Response.ChannelName, result1.Response.ChannelType));
+            }
+            
             var result = await rtmClient.UnsubscribeAsync(channelName);
             var status2 = result.Status;
             var response2 = result.Response;
@@ -184,7 +206,8 @@ public class AgoraRTMManager
     
     private void OnStorageEvent(StorageEvent @event)
     {
-        
+        Debug.Log($"[RTM][StorageEvent] type={@event.eventType} channelType={@event.channelType}");
+        FetchChannelMetadata();
     }
     private void OnMessageEvent(MessageEvent eve)
     {
@@ -210,8 +233,6 @@ public class AgoraRTMManager
             Debug.Log(string.Format("The channel type is {0}", channelType));
         }
     }
-    
-    
 
 
     public async Task OnLoginAsync()
@@ -234,6 +255,58 @@ public class AgoraRTMManager
         }
     }
 
+    public void FetchChannelMetadata()
+    {
+        if (rtmClient == null)
+        {
+            Debug.LogWarning("FetchChannelMetadata called but rtmClient is null");
+            return;
+        }
+        _ = FetchChannelMetadataInternal(); // esegue in background
+    }
+
+    private async Task FetchChannelMetadataInternal()
+    {
+        try
+        {
+            var result = await rtmClient.GetStorage()
+                .GetChannelMetadataAsync(channelName, RTM_CHANNEL_TYPE.MESSAGE);
+
+            if (result.Status.Error)
+            {
+                Debug.LogError($"GetChannelMetadata failed: {result.Status.ErrorCode} - {result.Status.Reason}");
+                return;
+            }
+
+            var meta = result.Response.Data;
+            if (meta == null || meta.metadataItems == null)
+            {
+                Debug.Log("[RTM] Channel metadata vuoto");
+                return;
+            }
+
+            foreach (var user in UserManager.instance.Users)
+            {
+                if(user.RtcID == null)
+                    continue;
+                
+                foreach (var item in meta.metadataItems)
+                {
+                    if (item.key.Equals(user.RtcID))
+                    {
+                        user.RtmID = item.value;
+                    }
+                }
+            }
+            
+
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Eccezione in FetchChannelMetadataInternal: " + ex.Message);
+        }
+    }
+
     public async void OnLogoutAsync()
     {
         if (rtmClient == null)
@@ -246,9 +319,10 @@ public class AgoraRTMManager
         Debug.Log(string.Format("RtmClient.Logout ret:{0} ", ret.Status.ErrorCode));
     }
 
-    public void OnDestroy()
+
+    public void OnDestroy(string uid)
     {
-        OnLeave();
+        OnLeave(uid);
         OnLogoutAsync();
     }
 }
