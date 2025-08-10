@@ -224,6 +224,8 @@ public class AgoraRTMManager
             Debug.Log(string.Format("You have recieved a string type message: {0} from: {1} in channel:{2}", stMessage,
                 publisher, channelName));
             Debug.Log(string.Format("The channel type is {0}", channelType));
+            
+            ChatManager.instance.CreateMessage(publisher, stMessage);
         }
         else
         {
@@ -287,7 +289,7 @@ public class AgoraRTMManager
 
             foreach (var user in UserManager.instance.Users)
             {
-                if(user.RtcID == null)
+                if(user.RtcID == null || user.RtmID != null)
                     continue;
                 
                 foreach (var item in meta.metadataItems)
