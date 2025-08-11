@@ -314,7 +314,7 @@ public class AgoraRTMManager
     {
         if (rtmClient == null)
         {
-            Debug.Log("RtmClient not init!!!")
+            Debug.Log("RtmClient not init!!!");
             return;
         }
 
