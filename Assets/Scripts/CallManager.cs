@@ -93,7 +93,16 @@ public class CallManager : MonoBehaviour
 
     public void LeaveCall()
     {
-        OnApplicationQuit();
+        if (agoraRTCManager != null)
+        {
+            agoraRTCManager.OnApplicationQuit();
+            agoraRTCManager = null;
+        }
+        if (agoraRTMManager != null)
+        {
+            agoraRTMManager.OnDestroy(uid.ToString());
+            agoraRTMManager = null;
+        }
         UserManager.instance.OnCallQuit();
         AnchorManager.instance.OnCallQuit();
 
@@ -101,9 +110,21 @@ public class CallManager : MonoBehaviour
     
     private void OnApplicationQuit()
     {
-        if (agoraRTCManager != null) agoraRTCManager.OnApplicationQuit();
-        if (agoraRTMManager != null) agoraRTMManager.OnDestroy(uid.ToString());
-        UserManager.instance.OnCallQuit();
-        AnchorManager.instance.OnCallQuit();
+        LeaveCall();
+    }
+
+    private void OnDestroy()
+    {
+        if (agoraRTCManager != null)
+        {
+            agoraRTCManager.OnApplicationQuit();
+            agoraRTMManager = null;
+        }
+
+        if (agoraRTMManager != null)
+        {
+            agoraRTMManager.OnDestroy(uid.ToString());
+            agoraRTMManager = null;
+        }
     }
 }

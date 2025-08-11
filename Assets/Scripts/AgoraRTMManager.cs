@@ -198,6 +198,7 @@ public class AgoraRTMManager
                 Debug.Log("Unsubscribe Channel Success!");
             }
 
+            
             var status3 = rtmClient.Dispose();
             Debug.Log("Dispose rtmClient Success!");
             rtmClient = null;
@@ -313,7 +314,7 @@ public class AgoraRTMManager
     {
         if (rtmClient == null)
         {
-            Debug.Log("RtmClient not init!!!");
+            Debug.Log("RtmClient not init!!!")
             return;
         }
 
@@ -325,6 +326,5 @@ public class AgoraRTMManager
     public void OnDestroy(string uid)
     {
         OnLeave(uid);
-        OnLogoutAsync();
     }
 }
