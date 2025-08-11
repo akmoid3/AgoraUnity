@@ -290,18 +290,32 @@ public class AgoraRTMManager
 
             foreach (var user in UserManager.instance.Users)
             {
-                if(user.RtcID == null || user.RtmID != null)
+                if (string.IsNullOrEmpty(user.RtcID))
                     continue;
-                
+
+                bool foundHandKey = false;
+                bool handRaisedValue = false;
+
                 foreach (var item in meta.metadataItems)
                 {
-                    if (item.key.Equals(user.RtcID))
+                    if (item.key.Equals(user.RtcID) && string.IsNullOrEmpty(user.RtmID))
                     {
                         user.RtmID = item.value;
                     }
+
+                    if (item.key == $"hand:{user.RtcID}")
+                    {
+                        handRaisedValue = item.value == "1" ||
+                                          item.value.Equals("true", StringComparison.OrdinalIgnoreCase);
+                        foundHandKey = true;
+                    }
                 }
+
+                // Se trova chiave alza mano altrimenti abbassa
+                user.IsHandRaised = foundHandKey && handRaisedValue;
+
+                Debug.Log($"User {user.RtcID} ({user.RtmID}) handRaised = {user.IsHandRaised}");
             }
-            
 
         }
         catch (Exception ex)

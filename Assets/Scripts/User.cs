@@ -7,11 +7,34 @@ public class User
    private string channelName;
 
    private GameObject anchor;
+   private bool isHandRaised = false;
+   private Animator animator;
+
+   public bool IsHandRaised
+   {
+      get => isHandRaised;
+      set
+      {
+         isHandRaised = value;
+         if(animator)
+            animator.SetBool("HandRaised", value);
+      }
+   }
 
    public GameObject Anchor
    {
       get => anchor;
-      set => anchor = value;
+      set
+      {
+         anchor = value;
+         if (anchor && animator == null)
+         {
+            animator = anchor.GetComponentInChildren<Animator>();
+            
+            if(animator)
+               animator.SetBool("HandRaised", isHandRaised);
+         }
+      }
    }
 
    public string ChannelName
