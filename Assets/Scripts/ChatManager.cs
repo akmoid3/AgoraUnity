@@ -1,3 +1,5 @@
+using System.Linq;
+using Agora_RTC_Plugin.API_Example.Examples.Advanced.SpatialAudioWithUsers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,6 +41,26 @@ public class ChatManager : MonoBehaviour
         
         if(audioSource != null)
             audioSource.PlayOneShot(messageSound);
+
+        var matchingUsers = UserManager.instance.Users
+            .Where(user => user.Anchor != null && user.RtmID == username)
+            .ToList();
+
+        var userFound = UserManager.instance.Users
+            .FirstOrDefault(user => user.Anchor != null && user.RtmID == username);
+        
+        
+        if(userFound != null)
+        {
+            Debug.Log("Utente trovato: " + userFound.RtmID);
+            
+            Popup popup = userFound.Anchor.GetComponent<Popup>();
+
+            if (popup != null)
+            {
+                popup.ShowMessage(message);
+            }
+        }
 
     }
 }

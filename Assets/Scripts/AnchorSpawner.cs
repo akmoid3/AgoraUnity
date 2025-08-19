@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -33,6 +34,12 @@ public class AnchorSpawner : MonoBehaviour
         
         if (!arPlane)
             return;
+
+        if (arPlane.classifications == PlaneClassifications.Ceiling ||
+            arPlane.classifications == PlaneClassifications.Floor)
+        {
+            return;
+        }
         
         Pose hitPose = new Pose(hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
 
