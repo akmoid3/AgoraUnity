@@ -410,7 +410,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
     {
         Debug.Log(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
-        if (agoraRtcManager != null || uid != 0)
+        if (agoraRtcManager != null || uid != 0 || uid != 10001)
         {
             //var gameObject = agoraRtcManager.MakeVideoView(UserManager.instance.UserPrefab,uid, agoraRtcManager.GetChannelName());
             

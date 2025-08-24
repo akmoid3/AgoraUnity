@@ -20,6 +20,9 @@ public class CallManager : MonoBehaviour
     private uint uid;
     private string channelToken;
     private string rtmToken;
+    [SerializeField] private AudioClip JoinCallClip;
+    [SerializeField] private AudioClip LeaveCallClip;
+
     
     [SerializeField] private AppVariables appVariables;
 
@@ -46,6 +49,7 @@ public class CallManager : MonoBehaviour
     public void JoinCall()
     {
         StartCoroutine(FetchTokensAndJoin());
+        AudioManager.instance.PlayOneShot(JoinCallClip);
     }
 
     private IEnumerator FetchTokensAndJoin()
@@ -105,6 +109,7 @@ public class CallManager : MonoBehaviour
         }
         UserManager.instance.OnCallQuit();
         AnchorManager.instance.OnCallQuit();
+        AudioManager.instance.PlayOneShot(LeaveCallClip);
 
     }
     
