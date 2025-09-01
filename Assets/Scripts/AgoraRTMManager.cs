@@ -287,7 +287,7 @@ public class AgoraRTMManager
                 Debug.Log("[RTM] Channel metadata vuoto");
                 return;
             }
-
+            
             foreach (var user in UserManager.instance.Users)
             {
                 if (string.IsNullOrEmpty(user.RtcID))

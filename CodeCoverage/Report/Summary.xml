@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageReport scope="Summary">
+  <Summary>
+    <Generatedon>01/09/2025 - 18:55:10</Generatedon>
+    <Parser>MultiReportParser (2x OpenCoverParser)</Parser>
+    <Assemblies>1</Assemblies>
+    <Classes>15</Classes>
+    <Files>14</Files>
+    <Coveredlines>87</Coveredlines>
+    <Uncoveredlines>678</Uncoveredlines>
+    <Coverablelines>765</Coverablelines>
+    <Totallines>1634</Totallines>
+    <Linecoverage>11.3</Linecoverage>
+    <Coveredbranches>0</Coveredbranches>
+    <Totalbranches>0</Totalbranches>
+    <Coveredmethods>19</Coveredmethods>
+    <Totalmethods>106</Totalmethods>
+    <Methodcoverage>17.9</Methodcoverage>
+  </Summary>
+  <Coverage>
+    <Assembly name="Scripts" classes="15" coverage="11.3" coveredlines="87" coverablelines="765" totallines="2145" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="19" totalmethods="106" methodcoverage="17.9">
+      <Class name="AgoraRTCManager" coverage="0" coveredlines="0" coverablelines="127" totallines="511" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="15" methodcoverage="0" />
+      <Class name="AgoraRTMManager" coverage="0" coveredlines="0" coverablelines="198" totallines="344" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="12" methodcoverage="0" />
+      <Class name="AnchorManager" coverage="77.4" coveredlines="55" coverablelines="71" totallines="125" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="8" totalmethods="8" methodcoverage="100" />
+      <Class name="AnchorSpawner" coverage="0" coveredlines="0" coverablelines="26" totallines="98" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="3" methodcoverage="0" />
+      <Class name="AudioManager" coverage="0" coveredlines="0" coverablelines="11" totallines="25" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="CallManager" coverage="0" coveredlines="0" coverablelines="75" totallines="134" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="9" methodcoverage="0" />
+      <Class name="ChatManager" coverage="0" coveredlines="0" coverablelines="31" totallines="65" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="DestroyAnchor" coverage="0" coveredlines="0" coverablelines="27" totallines="53" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="5" methodcoverage="0" />
+      <Class name="LookAtCamera" coverage="0" coveredlines="0" coverablelines="7" totallines="16" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="1" methodcoverage="0" />
+      <Class name="PermissionHelper" coverage="0" coveredlines="0" coverablelines="12" totallines="29" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="Popup" coverage="0" coveredlines="0" coverablelines="46" totallines="73" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="4" methodcoverage="0" />
+      <Class name="Prova" coverage="0" coveredlines="0" coverablelines="6" totallines="19" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="2" methodcoverage="0" />
+      <Class name="User" coverage="60" coveredlines="18" coverablelines="30" totallines="67" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="4" totalmethods="11" methodcoverage="36.3" />
+      <Class name="UserEventHandler" coverage="0" coveredlines="0" coverablelines="58" totallines="511" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="0" totalmethods="16" methodcoverage="0" />
+      <Class name="UserManager" coverage="35" coveredlines="14" coverablelines="40" totallines="75" branchcoverage="" coveredbranches="0" totalbranches="0" coveredmethods="7" totalmethods="14" methodcoverage="50" />
+    </Assembly>
+  </Coverage>
+</CoverageReport>

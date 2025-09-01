@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Serialization;
 using Agora.Rtc;
-using io.agora.rtc.demo;
 using System.Collections.Generic;
 
 public class AgoraRTCManager

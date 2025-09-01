@@ -110,7 +110,6 @@ public class CallManager : MonoBehaviour
         UserManager.instance.OnCallQuit();
         AnchorManager.instance.OnCallQuit();
         AudioManager.instance.PlayOneShot(LeaveCallClip);
-
     }
     
     private void OnApplicationQuit()

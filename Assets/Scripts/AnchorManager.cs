@@ -9,10 +9,11 @@ public class AnchorManager : MonoBehaviour
 {
     public static AnchorManager instance;
 
-    [SerializeField] List<GameObject> anchors = new List<GameObject>();
-    private List<GameObject> FreeAnchors = new List<GameObject>();
+    [SerializeField] public List<GameObject> anchors = new List<GameObject>();
+    public List<GameObject> FreeAnchors = new List<GameObject>();
+    public GameObject ancoraProva;
 
-    private void Start()
+    public void Start()
     {
         if (instance == null)
             instance = this;
@@ -48,19 +49,20 @@ public class AnchorManager : MonoBehaviour
 
     public void AssignAnchorToUser(User user)
     {
-        if (FreeAnchors.Count > 0)
-        {
-            GameObject anchor = FreeAnchors[0];
-            FreeAnchors.RemoveAt(0);
-
-            user.Anchor = anchor;
-
-            SetVideo(user);
-        }
-        else
-        {
-            UserManager.instance.AddWaitingUser(user);
-        }
+        user.Anchor = ancoraProva;
+        // if (FreeAnchors.Count > 0)
+        // {
+        //     GameObject anchor = FreeAnchors[0];
+        //     FreeAnchors.RemoveAt(0);
+        //
+        //     user.Anchor = anchor;
+        //
+        //     SetVideo(user);
+        // }
+        // else
+        // {
+        //     UserManager.instance.AddWaitingUser(user);
+        // }
     }
 
     private void SetVideo(User user)
