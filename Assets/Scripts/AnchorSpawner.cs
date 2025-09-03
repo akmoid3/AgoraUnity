@@ -30,6 +30,20 @@ public class AnchorSpawner : MonoBehaviour
     {
         Debug.Log("SpawnAnchor");
         xrRayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
+        
+        
+        Pose hitPose = new Pose(hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
+
+        if (arAnchorManager)
+        {
+            GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, hitPose.position,
+                hitPose.rotation);
+            prefabSpawned.AddComponent<LookAtCamera>();
+            AnchorManager.instance.AddAnchor(prefabSpawned);
+            Debug.Log("ARAnchorManager is null");
+            return;
+        }
+        
         hit.collider.TryGetComponent(out ARPlane arPlane);
         
         if (!arPlane)
@@ -41,25 +55,16 @@ public class AnchorSpawner : MonoBehaviour
             return;
         }
         
-        Pose hitPose = new Pose(hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
-
-        // if (arAnchorManager)
-        // {
-        //     GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, hitPose.position,
-        //         hitPose.rotation);
-        //     prefabSpawned.AddComponent<LookAtCamera>();
-        //     AnchorManager.instance.AddAnchor(prefabSpawned);
-        //     Debug.Log("ARAnchorManager is null");
-        //     return;
-        // }
+        
 
         var result = await arAnchorManager.TryAddAnchorAsync(hitPose);
 
         if (result.status.IsSuccess())
         {
             ARAnchor anchor = result.value;
-            
-            GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, anchor.transform.position,
+            Vector3 spawnPos = anchor.transform.position + Vector3.up * 1f;
+
+            GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, spawnPos,
                 anchor.transform.rotation);
             prefabSpawned.transform.SetParent(anchor.transform);
             prefabSpawned.AddComponent<LookAtCamera>();

@@ -25,17 +25,17 @@ public class DestroyAnchor : MonoBehaviour
         grabInteractable.activated.RemoveListener(OnActivated);
     }
 
-    private void OnGrabbed(SelectEnterEventArgs args)
-    {
-        if (AnchorManager.instance != null)
-        {
-            AnchorManager.instance.RemoveAnchor(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+    // private void OnGrabbed(SelectEnterEventArgs args)
+    // {
+    //     if (AnchorManager.instance != null)
+    //     {
+    //         AnchorManager.instance.RemoveAnchor(gameObject);
+    //     }
+    //     else
+    //     {
+    //         Destroy(gameObject);
+    //     }
+    // }
 
     private void OnActivated(ActivateEventArgs args)
     {

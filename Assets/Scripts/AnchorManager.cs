@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Agora.Rtc;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
@@ -43,26 +44,37 @@ public class AnchorManager : MonoBehaviour
 
             user.Anchor = anchor;
             SetVideo(user);
+            
+            NameDisplayer nameDisplayer = user.Anchor.GetComponentInChildren<NameDisplayer>();
+            TextMeshProUGUI textMeshPro = user.Anchor.GetComponentInChildren<TextMeshProUGUI>();
+            textMeshPro.text = user.RtmID;
+            if(nameDisplayer)
+                nameDisplayer.DisplayName(user.RtmID);
         }
     }
 
 
     public void AssignAnchorToUser(User user)
     {
-        user.Anchor = ancoraProva;
-        // if (FreeAnchors.Count > 0)
-        // {
-        //     GameObject anchor = FreeAnchors[0];
-        //     FreeAnchors.RemoveAt(0);
-        //
-        //     user.Anchor = anchor;
-        //
-        //     SetVideo(user);
-        // }
-        // else
-        // {
-        //     UserManager.instance.AddWaitingUser(user);
-        // }
+        if (FreeAnchors.Count > 0)
+        {
+            GameObject anchor = FreeAnchors[0];
+            FreeAnchors.RemoveAt(0);
+        
+            user.Anchor = anchor;
+        
+            SetVideo(user);
+
+            NameDisplayer nameDisplayer = user.Anchor.GetComponentInChildren<NameDisplayer>();
+            TextMeshPro textMeshPro = user.Anchor.GetComponentInChildren<TextMeshPro>();
+            textMeshPro.text = user.RtmID;
+            if(nameDisplayer)
+                nameDisplayer.DisplayName(user.RtmID);
+        }
+        else
+        {
+            UserManager.instance.AddWaitingUser(user);
+        }
     }
 
     private void SetVideo(User user)
@@ -75,19 +87,19 @@ public class AnchorManager : MonoBehaviour
 
             videoSurface.OnTextureSizeModify += (int width, int height) =>
             {
-                var transform = videoSurface.GetComponent<RectTransform>();
-                if (transform)
-                {
-                    //If render in RawImage. just set rawImage size.
-                    transform.sizeDelta = new Vector2(width / 2, height / 2);
-                    transform.localScale = Vector3.one;
-                }
-                else
-                {
-                    // //If render in MeshRenderer, just set localSize with MeshRenderer
-                    // float scale = (float)height / (float)width;
-                    // videoSurface.transform.localScale = new Vector3(-1, 1, scale);
-                }
+                // var transform = videoSurface.GetComponent<RectTransform>();
+                // if (transform)
+                // {
+                //     //If render in RawImage. just set rawImage size.
+                //     transform.sizeDelta = new Vector2(width / 2, height / 2);
+                //     transform.localScale = Vector3.one;
+                // }
+                // else
+                // {
+                //     // //If render in MeshRenderer, just set localSize with MeshRenderer
+                //     // float scale = (float)height / (float)width;
+                //     // videoSurface.transform.localScale = new Vector3(-1, 1, scale);
+                // }
 
                 Debug.Log("OnTextureSizeModify: " + width + "  " + height);
             };
