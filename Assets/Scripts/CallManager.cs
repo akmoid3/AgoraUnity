@@ -122,7 +122,7 @@ public class CallManager : MonoBehaviour
         if (agoraRTCManager != null)
         {
             agoraRTCManager.OnApplicationQuit();
-            agoraRTMManager = null;
+            agoraRTCManager = null;
         }
 
         if (agoraRTMManager != null)

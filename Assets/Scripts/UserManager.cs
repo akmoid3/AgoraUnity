@@ -26,7 +26,7 @@ public class UserManager : MonoBehaviour
         set => users = value;
     }
 
-    void Start()
+    public void Start()
     {
         if (instance == null)
             instance = this;
@@ -50,6 +50,7 @@ public class UserManager : MonoBehaviour
     {
         if (!waitingUsers.Contains(user))
             waitingUsers.Add(user);
+        AnchorManager.instance.TryAssignAnchorToWaitingUser();
     }
 
     public void RemoveWaitingUser(User user)

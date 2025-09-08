@@ -14,13 +14,13 @@ public class AnchorSpawner : MonoBehaviour
 
     //[SerializeField] private XRBaseInteractable simpleInteractable;
 
-    private void Awake()
+    public void Awake()
     {
         //simpleInteractable = GetComponent<XRSimpleInteractable>();
         xrRayInteractor = GetComponent<XRRayInteractor>();
     }
 
-    private void Start()
+    public void Start()
     {
         //simpleInteractable.selectEntered.AddListener(SpawnAnchor);
         xrRayInteractor.selectEntered.AddListener(SpawnAnchor);
@@ -32,17 +32,19 @@ public class AnchorSpawner : MonoBehaviour
         xrRayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit);
         
         
-        Pose hitPose = new Pose(hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
 
-        if (arAnchorManager)
-        {
-            GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, hitPose.position,
-                hitPose.rotation);
-            prefabSpawned.AddComponent<LookAtCamera>();
-            AnchorManager.instance.AddAnchor(prefabSpawned);
-            Debug.Log("ARAnchorManager is null");
+        // if (arAnchorManager)
+        // {
+        //     GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, hitPose.position,
+        //         hitPose.rotation);
+        //     prefabSpawned.AddComponent<LookAtCamera>();
+        //     AnchorManager.instance.AddAnchor(prefabSpawned);
+        //     Debug.Log("ARAnchorManager is null");
+        //     return;
+        // }
+        
+        if(hit.collider == null)
             return;
-        }
         
         hit.collider.TryGetComponent(out ARPlane arPlane);
         
@@ -56,13 +58,14 @@ public class AnchorSpawner : MonoBehaviour
         }
         
         
+        Pose hitPose = new Pose(hit.point, Quaternion.FromToRotation(Vector3.up, hit.normal));
 
         var result = await arAnchorManager.TryAddAnchorAsync(hitPose);
 
         if (result.status.IsSuccess())
         {
             ARAnchor anchor = result.value;
-            Vector3 spawnPos = anchor.transform.position + Vector3.up * 1f;
+            Vector3 spawnPos = anchor.transform.position + Vector3.up * 0.02f;
 
             GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, spawnPos,
                 anchor.transform.rotation);

@@ -9049,7 +9049,7 @@ MonoBehaviour:
   JoinCallClip: {fileID: 8300000, guid: f21714c11710fbc4db628ad7270cb725, type: 3}
   LeaveCallClip: {fileID: 8300000, guid: 0b136e4be93aa0f4c9157e523adf9e9e, type: 3}
   appVariables: {fileID: 11400000, guid: e3887498fb9e47740b22d6009012b03b, type: 2}
-  serverBaseUrl: http://192.168.1.10:5000
+  serverBaseUrl: http://192.168.1.7:5000
 --- !u!4 &2090812146
 Transform:
   m_ObjectHideFlags: 0

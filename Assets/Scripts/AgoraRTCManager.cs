@@ -15,7 +15,7 @@ public class AgoraRTCManager
 
     [SerializeField] private string channelName = "";
 
-    internal IRtcEngine RtcEngine = null;
+    public IRtcEngine RtcEngine = null;
 
     private DeviceInfo[] _videoDeviceInfos;
     
@@ -42,17 +42,17 @@ public class AgoraRTCManager
     // }
 
     // Update is called once per frame
-    private void Update()
-    {
-        PermissionHelper.RequestMicrophontPermission();
-        //PermissionHelper.RequestCameraPermission();
-    }
-
-
-    private bool CheckAppId()
-    {
-        return appID != null && appID != "" && appID.Length > 10;
-    }
+    // private void Update()
+    // {
+    //     //PermissionHelper.RequestMicrophontPermission();
+    //     //PermissionHelper.RequestCameraPermission();
+    // }
+    //
+    //
+    // private bool CheckAppId()
+    // {
+    //     return appID != null && appID != "" && appID.Length > 10;
+    // }
 
 
     #region -- Button Events ---
@@ -183,6 +183,7 @@ public class AgoraRTCManager
         RtcEngine = null;
     }
 
+    
     public void OnApplicationQuit()
     {
         if (RtcEngine != null)
@@ -194,7 +195,7 @@ public class AgoraRTCManager
         }
     }
 
-    internal string GetChannelName()
+    public string GetChannelName()
     {
         return channelName;
     }
@@ -253,68 +254,68 @@ public class AgoraRTCManager
     // }
 
     // VIDEO TYPE 1: 3D Object
-    private static VideoSurface MakePlaneSurface(string goName)
-    {
-        var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
-
-        if (go == null)
-        {
-            return null;
-        }
-
-        go.name = goName;
-        var mesh = go.GetComponent<MeshRenderer>();
-        if (mesh != null)
-        {
-            Debug.LogWarning("VideoSureface update shader");
-            mesh.material = new Material(Shader.Find("Unlit/Texture"));
-        }
-
-        // set up transform
-        go.transform.Rotate(-90.0f, 0.0f, 0.0f);
-        go.transform.position = new Vector3(0.0f,0.0f,3.0f);
-        go.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
-
-        // configure videoSurface
-        var videoSurface = go.AddComponent<VideoSurface>();
-        return videoSurface;
-    }
-
-    // Video TYPE 2: RawImage
-    private static VideoSurface MakeImageSurface(string goName)
-    {
-        GameObject go = new GameObject();
-
-        if (go == null)
-        {
-            return null;
-        }
-
-        go.name = goName;
-        // to be renderered onto
-        go.AddComponent<RawImage>();
-        // make the object draggable
-        //go.AddComponent<UIElementDrag>();
-        var canvas = GameObject.Find("CoachingCardRoot");
-        if (canvas != null)
-        {
-            go.transform.parent = canvas.transform;
-            Debug.Log("add video view");
-        }
-        else
-        {
-            Debug.Log("Canvas is null video view");
-        }
-
-        // set up transform
-        go.transform.Rotate(0f, 0.0f, 180.0f);
-        go.transform.localPosition = Vector3.zero;
-        go.transform.localScale = new Vector3(2f, 3f, 1f);
-
-        // configure videoSurface
-        var videoSurface = go.AddComponent<VideoSurface>();
-        return videoSurface;
-    }
+    // private static VideoSurface MakePlaneSurface(string goName)
+    // {
+    //     var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
+    //
+    //     if (go == null)
+    //     {
+    //         return null;
+    //     }
+    //
+    //     go.name = goName;
+    //     var mesh = go.GetComponent<MeshRenderer>();
+    //     if (mesh != null)
+    //     {
+    //         Debug.LogWarning("VideoSureface update shader");
+    //         mesh.material = new Material(Shader.Find("Unlit/Texture"));
+    //     }
+    //
+    //     // set up transform
+    //     go.transform.Rotate(-90.0f, 0.0f, 0.0f);
+    //     go.transform.position = new Vector3(0.0f,0.0f,3.0f);
+    //     go.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+    //
+    //     // configure videoSurface
+    //     var videoSurface = go.AddComponent<VideoSurface>();
+    //     return videoSurface;
+    // }
+    //
+    // // Video TYPE 2: RawImage
+    // private static VideoSurface MakeImageSurface(string goName)
+    // {
+    //     GameObject go = new GameObject();
+    //
+    //     if (go == null)
+    //     {
+    //         return null;
+    //     }
+    //
+    //     go.name = goName;
+    //     // to be renderered onto
+    //     go.AddComponent<RawImage>();
+    //     // make the object draggable
+    //     //go.AddComponent<UIElementDrag>();
+    //     var canvas = GameObject.Find("CoachingCardRoot");
+    //     if (canvas != null)
+    //     {
+    //         go.transform.parent = canvas.transform;
+    //         Debug.Log("add video view");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("Canvas is null video view");
+    //     }
+    //
+    //     // set up transform
+    //     go.transform.Rotate(0f, 0.0f, 180.0f);
+    //     go.transform.localPosition = Vector3.zero;
+    //     go.transform.localScale = new Vector3(2f, 3f, 1f);
+    //
+    //     // configure videoSurface
+    //     var videoSurface = go.AddComponent<VideoSurface>();
+    //     return videoSurface;
+    // }
 
     // internal void DestroyVideoView(uint uid)
     // {
@@ -409,7 +410,7 @@ internal class UserEventHandler : IRtcEngineEventHandler
     public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
     {
         Debug.Log(string.Format("OnUserJoined uid: ${0} elapsed: ${1}", uid, elapsed));
-        if (agoraRtcManager != null || uid != 0 || uid != 10001)
+        if (agoraRtcManager != null && uid != 0 && uid != 10001)
         {
             //var gameObject = agoraRtcManager.MakeVideoView(UserManager.instance.UserPrefab,uid, agoraRtcManager.GetChannelName());
             

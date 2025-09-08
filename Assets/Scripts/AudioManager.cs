@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     public AudioSource audioSource;
-    void Start()
+    public void Start()
     {
         if(instance == null)
             instance = this;
@@ -19,7 +19,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayOneShot(AudioClip clip)
     {
-        audioSource.PlayOneShot(clip);
+        if(clip != null)
+            audioSource.PlayOneShot(clip);
     }
 
 }

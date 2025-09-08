@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class NameDisplayer : MonoBehaviour
 {
-    [Header("Letter Prefabs (A-Z)")]
-    [SerializeField] private List<GameObject> letterPrefabs; 
-    
+    [Header("Letter Prefabs (A-Z)")] [SerializeField]
+    private List<GameObject> letterPrefabs;
+
     private Dictionary<char, GameObject> letterMap;
 
-    [Header("Display Settings")]
-    [SerializeField] private Transform displayParent;
+    [Header("Display Settings")] [SerializeField]
+    private Transform displayParent;
+
     [SerializeField] private float letterSpacing = 0.1f;
-    [SerializeField] private bool arrangeHorizontally = true;
 
     private List<GameObject> instantiatedLetters = new List<GameObject>();
 
-    private void Awake()
+    public void Awake()
     {
         letterMap = new Dictionary<char, GameObject>();
 
@@ -43,10 +43,7 @@ public class NameDisplayer : MonoBehaviour
         {
             if (letter == ' ')
             {
-                if (arrangeHorizontally)
-                    currentPosition.x -= letterSpacing;
-                else
-                    currentPosition.y -= letterSpacing;
+                currentPosition += -displayParent.right * letterSpacing;
                 continue;
             }
 
@@ -55,19 +52,16 @@ public class NameDisplayer : MonoBehaviour
                 GameObject letterInstance = Instantiate(prefab, currentPosition, displayParent.rotation, displayParent);
                 instantiatedLetters.Add(letterInstance);
 
-                // Calcola larghezza della lettera dal suo Renderer
                 Renderer rend = letterInstance.GetComponentInChildren<Renderer>();
                 float width = (rend != null) ? rend.bounds.size.x : letterSpacing;
 
-                if (arrangeHorizontally)
-                    currentPosition.x -= width + letterSpacing;
-                else
-                    currentPosition.y -= width + letterSpacing;
+                currentPosition += -displayParent.right * (width + letterSpacing);
             }
         }
 
         CenterLetters();
     }
+
 
     private void ClearDisplayedLetters()
     {
@@ -76,6 +70,7 @@ public class NameDisplayer : MonoBehaviour
             if (letter != null)
                 Destroy(letter);
         }
+
         instantiatedLetters.Clear();
     }
 
@@ -89,6 +84,7 @@ public class NameDisplayer : MonoBehaviour
         {
             totalPosition += letter.transform.position;
         }
+
         Vector3 centerPosition = totalPosition / instantiatedLetters.Count;
         Vector3 offset = displayParent.position - centerPosition;
 

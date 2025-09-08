@@ -12,6 +12,8 @@ public class Popup : MonoBehaviour
 
     public void ShowMessage(string message, float duration = 5f)
     {
+        if(textParent == null || textPrefab == null)
+            return;
         GameObject newTextGO = Instantiate(textPrefab, textParent);
         TMP_Text tmp = newTextGO.GetComponent<TMP_Text>();
 

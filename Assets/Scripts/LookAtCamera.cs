@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-    void LateUpdate()
+    public void LateUpdate()
     {
         if (Camera.main == null) return;
 

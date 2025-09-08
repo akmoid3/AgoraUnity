@@ -31,7 +31,7 @@ public class AnchorManager : MonoBehaviour
         TryAssignAnchorToWaitingUser();
     }
 
-    private void TryAssignAnchorToWaitingUser()
+    public void TryAssignAnchorToWaitingUser()
     {
         List<User> waitingUsers = UserManager.instance.WaitingUsers;
         while (FreeAnchors.Count > 0 && waitingUsers.Count > 0)
@@ -46,10 +46,11 @@ public class AnchorManager : MonoBehaviour
             SetVideo(user);
             
             NameDisplayer nameDisplayer = user.Anchor.GetComponentInChildren<NameDisplayer>();
-            TextMeshProUGUI textMeshPro = user.Anchor.GetComponentInChildren<TextMeshProUGUI>();
-            textMeshPro.text = user.RtmID;
+            String name = user.RtmID;
+            // TextMeshProUGUI textMeshPro = user.Anchor.GetComponentInChildren<TextMeshProUGUI>();
+            // textMeshPro.text = user.RtmID;
             if(nameDisplayer)
-                nameDisplayer.DisplayName(user.RtmID);
+                nameDisplayer.DisplayName(name);
         }
     }
 
@@ -66,10 +67,11 @@ public class AnchorManager : MonoBehaviour
             SetVideo(user);
 
             NameDisplayer nameDisplayer = user.Anchor.GetComponentInChildren<NameDisplayer>();
-            TextMeshPro textMeshPro = user.Anchor.GetComponentInChildren<TextMeshPro>();
-            textMeshPro.text = user.RtmID;
+            String name = user.RtmID;
+            // TextMeshProUGUI textMeshPro = user.Anchor.GetComponentInChildren<TextMeshProUGUI>();
+            // textMeshPro.text = user.RtmID;
             if(nameDisplayer)
-                nameDisplayer.DisplayName(user.RtmID);
+                nameDisplayer.DisplayName(name);
         }
         else
         {

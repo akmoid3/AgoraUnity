@@ -6,7 +6,11 @@
         "UnityEditor.TestRunner",
         "Scripts",
         "Agorartm",
-        ""
+        "Unity.TextMeshPro",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.ARSubsystems",
+        "AgoraRtcSDK"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
