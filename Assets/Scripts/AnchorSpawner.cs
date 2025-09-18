@@ -65,7 +65,7 @@ public class AnchorSpawner : MonoBehaviour
         if (result.status.IsSuccess())
         {
             ARAnchor anchor = result.value;
-            Vector3 spawnPos = anchor.transform.position + Vector3.up * 0.02f;
+            Vector3 spawnPos = anchor.transform.position + Vector3.up * 0.05f;
 
             GameObject prefabSpawned = Instantiate(UserManager.instance.UserPrefab, spawnPos,
                 anchor.transform.rotation);

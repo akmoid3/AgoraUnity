@@ -1397,7 +1397,7 @@ GameObject:
   - component: {fileID: 4060046958603297301}
   m_Layer: 0
   m_Name: RobotPivot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4408,7 +4408,6 @@ MonoBehaviour:
   - {fileID: 1164449579470216672, guid: cbe8e38e74c4b9741a0ed1e6606a7986, type: 3}
   displayParent: {fileID: 2902190617426904190}
   letterSpacing: 0.005
-  arrangeHorizontally: 1
 --- !u!1 &7327954334537335053
 GameObject:
   m_ObjectHideFlags: 0

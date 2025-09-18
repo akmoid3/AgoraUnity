@@ -49,8 +49,17 @@ public class AnchorManager : MonoBehaviour
             String name = user.RtmID;
             // TextMeshProUGUI textMeshPro = user.Anchor.GetComponentInChildren<TextMeshProUGUI>();
             // textMeshPro.text = user.RtmID;
-            if(nameDisplayer)
-                nameDisplayer.DisplayName(name);
+            if (nameDisplayer)
+            {
+                if (!string.IsNullOrEmpty(user.RtmID))
+                {
+                    nameDisplayer.DisplayName(user.RtmID);
+                }
+                else
+                {
+                    user.OnRtmIdAvailable += (id) => nameDisplayer.DisplayName(id);
+                }
+            }
         }
     }
 
@@ -70,8 +79,17 @@ public class AnchorManager : MonoBehaviour
             String name = user.RtmID;
             // TextMeshProUGUI textMeshPro = user.Anchor.GetComponentInChildren<TextMeshProUGUI>();
             // textMeshPro.text = user.RtmID;
-            if(nameDisplayer)
-                nameDisplayer.DisplayName(name);
+            if (nameDisplayer)
+            {
+                if (!string.IsNullOrEmpty(user.RtmID))
+                {
+                    nameDisplayer.DisplayName(user.RtmID);
+                }
+                else
+                {
+                    user.OnRtmIdAvailable += (id) => nameDisplayer.DisplayName(id);
+                }
+            }
         }
         else
         {

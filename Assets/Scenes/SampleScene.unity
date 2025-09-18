@@ -1795,6 +1795,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446899952}
   m_CullTransparentMesh: 0
+--- !u!1 &525938023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 581609285641880929, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
+  m_PrefabInstance: {fileID: 2540456819257962235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &571616286 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5250211293244616108, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
+  m_PrefabInstance: {fileID: 2540456819257962235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &572328218 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4494524748444649001, guid: 8a3826b29567e6044a95e79d38cce36c, type: 3}
@@ -2117,7 +2127,7 @@ MonoBehaviour:
   m_HoverTimeToSelect: 0.5
   m_AutoDeselect: 0
   m_TimeToAutoDeselect: 3
-  m_EnableUIInteraction: 1
+  m_EnableUIInteraction: 0
   m_BlockInteractionsWithScreenSpaceUI: 0
   m_BlockUIOnInteractableSelection: 1
   m_ManipulateAttachTransform: 1
@@ -2383,8 +2393,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 0}
+    key1: {r: 1, g: 0, b: 0, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2408,7 +2418,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   m_BlockedColorGradient:
@@ -3585,7 +3595,7 @@ MonoBehaviour:
   m_HoverTimeToSelect: 0.5
   m_AutoDeselect: 0
   m_TimeToAutoDeselect: 3
-  m_EnableUIInteraction: 1
+  m_EnableUIInteraction: 0
   m_BlockInteractionsWithScreenSpaceUI: 0
   m_BlockUIOnInteractableSelection: 1
   m_ManipulateAttachTransform: 1
@@ -3851,8 +3861,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 0}
+    key1: {r: 1, g: 0, b: 0, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -3876,7 +3886,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   m_BlockedColorGradient:
@@ -6199,6 +6209,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 555228813115570368, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
   m_PrefabInstance: {fileID: 2540456819257962235}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1567281323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571616286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b9cf54c47f40ee9c3eb30ea8eb89b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Handedness: 2
+  m_UpdateType: 1
+  m_PoseUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JointsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TrackingAcquired:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TrackingLost:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1576331063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6581,6 +6620,89 @@ Transform:
   - {fileID: 257810523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1643011605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1643011606}
+  - component: {fileID: 1643011607}
+  - component: {fileID: 1643011608}
+  m_Layer: 0
+  m_Name: HandDeleteGesture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1643011606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643011605}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1567281318}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1643011607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643011605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf93899325d5df74eb9176e097ee3d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandTrackingEvents: {fileID: 1567281323}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 60daa8e83ed1163488562d11f4d9e5be, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_Background: {fileID: 2825588625553308068}
+  m_GesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1643011608}
+        m_TargetAssemblyTypeName: DeleteHandGesture, Scripts
+        m_MethodName: DeleteAnchor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: funziona destro
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_GestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_MinimumHoldTime: 0.2
+  m_GestureDetectionInterval: 0.1
+  m_StaticGestures: []
+--- !u!114 &1643011608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643011605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec86e1895079c1b49a82185ef2b9e10e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayinteractor: {fileID: 899239229}
 --- !u!1 &1648697848
 GameObject:
   m_ObjectHideFlags: 0
@@ -7050,6 +7172,89 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1241364538}
   m_SourcePrefab: {fileID: 100100000, guid: 996bc95e1b6dfc847aead2de66dc4a91, type: 3}
+--- !u!1 &1814692255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1814692256}
+  - component: {fileID: 1814692257}
+  - component: {fileID: 1814692258}
+  m_Layer: 0
+  m_Name: HandDeleteGesture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1814692256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814692255}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1981267723}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1814692257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814692255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf93899325d5df74eb9176e097ee3d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HandTrackingEvents: {fileID: 1981267728}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 60daa8e83ed1163488562d11f4d9e5be, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_Background: {fileID: 2825588625553308068}
+  m_GesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1814692258}
+        m_TargetAssemblyTypeName: DeleteHandGesture, Scripts
+        m_MethodName: DeleteAnchor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: funziona sinistro
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_GestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_MinimumHoldTime: 0.2
+  m_GestureDetectionInterval: 0.1
+  m_StaticGestures: []
+--- !u!114 &1814692258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814692255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec86e1895079c1b49a82185ef2b9e10e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayinteractor: {fileID: 1990513923}
 --- !u!1 &1824647602
 GameObject:
   m_ObjectHideFlags: 0
@@ -7316,7 +7521,7 @@ MonoBehaviour:
   m_HoverTimeToSelect: 0.5
   m_AutoDeselect: 0
   m_TimeToAutoDeselect: 3
-  m_EnableUIInteraction: 1
+  m_EnableUIInteraction: 0
   m_BlockInteractionsWithScreenSpaceUI: 0
   m_BlockUIOnInteractableSelection: 1
   m_ManipulateAttachTransform: 1
@@ -7568,8 +7773,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 0}
+    key1: {r: 1, g: 0, b: 0, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -7593,7 +7798,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   m_BlockedColorGradient:
@@ -8293,6 +8498,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 123166215390914371, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
   m_PrefabInstance: {fileID: 2540456819257962235}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1981267728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525938023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5b9cf54c47f40ee9c3eb30ea8eb89b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Handedness: 1
+  m_UpdateType: 1
+  m_PoseUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JointsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TrackingAcquired:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TrackingLost:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1990513917
 GameObject:
   m_ObjectHideFlags: 0
@@ -8432,8 +8666,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0, b: 0, a: 1}
+    key0: {r: 1, g: 0, b: 0, a: 0}
+    key1: {r: 1, g: 0, b: 0, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -8457,7 +8691,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   m_BlockedColorGradient:
@@ -8772,7 +9006,7 @@ MonoBehaviour:
   m_HoverTimeToSelect: 0.5
   m_AutoDeselect: 0
   m_TimeToAutoDeselect: 3
-  m_EnableUIInteraction: 1
+  m_EnableUIInteraction: 0
   m_BlockInteractionsWithScreenSpaceUI: 0
   m_BlockUIOnInteractableSelection: 1
   m_ManipulateAttachTransform: 1
@@ -9049,7 +9283,7 @@ MonoBehaviour:
   JoinCallClip: {fileID: 8300000, guid: f21714c11710fbc4db628ad7270cb725, type: 3}
   LeaveCallClip: {fileID: 8300000, guid: 0b136e4be93aa0f4c9157e523adf9e9e, type: 3}
   appVariables: {fileID: 11400000, guid: e3887498fb9e47740b22d6009012b03b, type: 2}
-  serverBaseUrl: http://192.168.1.7:5000
+  serverBaseUrl: http://192.168.248.160:5000
 --- !u!4 &2090812146
 Transform:
   m_ObjectHideFlags: 0
@@ -17789,10 +18023,22 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 123166215390914371, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1990513918}
+    - targetCorrespondingSourceObject: {fileID: 123166215390914371, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1814692256}
     - targetCorrespondingSourceObject: {fileID: 555228813115570368, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
       insertIndex: -1
       addedObject: {fileID: 899239234}
+    - targetCorrespondingSourceObject: {fileID: 555228813115570368, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1643011606}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 581609285641880929, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1981267728}
+    - targetCorrespondingSourceObject: {fileID: 5250211293244616108, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1567281323}
     - targetCorrespondingSourceObject: {fileID: 8938734314145983681, guid: 1782b89ac15b3c34cbc28f0ede57d895, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2540456819257962238}

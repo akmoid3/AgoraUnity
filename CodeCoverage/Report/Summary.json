@@ -1,36 +1,37 @@
 {
   "summary": {
-    "generatedon": "2025-09-08T20:57:55Z",
+    "generatedon": "2025-09-18T06:42:09Z",
     "parser": "MultiReportParser (2x OpenCoverParser)",
     "assemblies": 1,
-    "classes": 14,
-    "files": 13,
-    "coveredlines": 675,
-    "uncoveredlines": 92,
-    "coverablelines": 767,
-    "totallines": 1709,
-    "linecoverage": 88,
+    "classes": 15,
+    "files": 14,
+    "coveredlines": 654,
+    "uncoveredlines": 149,
+    "coverablelines": 803,
+    "totallines": 1764,
+    "linecoverage": 81.4,
     "coveredbranches": 0,
     "totalbranches": 0,
     "coveredmethods": 101,
-    "totalmethods": 102,
-    "methodcoverage": 99
+    "totalmethods": 103,
+    "methodcoverage": 98
  },
   "coverage": {
     "assemblies": [
-      { "name": "Scripts", "classes": 14, "coverage": 88, "coveredlines": 675, "coverablelines": 767, "totallines": 2221, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 99, "coveredmethods": 101, "totalmethods": 102, "classesinassembly": [
+      { "name": "Scripts", "classes": 15, "coverage": 81.4, "coveredlines": 654, "coverablelines": 803, "totallines": 2276, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 98, "coveredmethods": 101, "totalmethods": 103, "classesinassembly": [
         { "name": "AgoraRTCManager", "coverage": 100, "coveredlines": 81, "coverablelines": 81, "totallines": 512, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 11, "totalmethods": 11 },
-        { "name": "AgoraRTMManager", "coverage": 83.8, "coveredlines": 166, "coverablelines": 198, "totallines": 344, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 12, "totalmethods": 12 },
-        { "name": "AnchorManager", "coverage": 76.2, "coveredlines": 61, "coverablelines": 80, "totallines": 139, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
+        { "name": "AgoraRTMManager", "coverage": 73.7, "coveredlines": 146, "coverablelines": 198, "totallines": 344, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 12, "totalmethods": 12 },
+        { "name": "AnchorManager", "coverage": 58.7, "coveredlines": 57, "coverablelines": 97, "totallines": 158, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 8, "totalmethods": 8 },
         { "name": "AnchorSpawner", "coverage": 41.3, "coveredlines": 12, "coverablelines": 29, "totallines": 106, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 3, "totalmethods": 3 },
         { "name": "AudioManager", "coverage": 100, "coveredlines": 12, "coverablelines": 12, "totallines": 26, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 2, "totalmethods": 2 },
         { "name": "CallManager", "coverage": 73.3, "coveredlines": 55, "coverablelines": 75, "totallines": 134, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 88.8, "coveredmethods": 8, "totalmethods": 9 },
         { "name": "ChatManager", "coverage": 100, "coveredlines": 31, "coverablelines": 31, "totallines": 65, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 2, "totalmethods": 2 },
+        { "name": "DeleteHandGesture", "coverage": 0, "coveredlines": 0, "coverablelines": 16, "totallines": 27, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 0, "coveredmethods": 0, "totalmethods": 1 },
         { "name": "DestroyAnchor", "coverage": 100, "coveredlines": 18, "coverablelines": 18, "totallines": 53, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 4, "totalmethods": 4 },
         { "name": "LookAtCamera", "coverage": 100, "coveredlines": 7, "coverablelines": 7, "totallines": 16, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 1, "totalmethods": 1 },
         { "name": "NameDisplayer", "coverage": 100, "coveredlines": 59, "coverablelines": 59, "totallines": 96, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 5, "totalmethods": 5 },
         { "name": "Popup", "coverage": 100, "coveredlines": 48, "coverablelines": 48, "totallines": 75, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 4, "totalmethods": 4 },
-        { "name": "User", "coverage": 100, "coveredlines": 30, "coverablelines": 30, "totallines": 67, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 11, "totalmethods": 11 },
+        { "name": "User", "coverage": 100, "coveredlines": 33, "coverablelines": 33, "totallines": 76, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 11, "totalmethods": 11 },
         { "name": "UserEventHandler", "coverage": 93.1, "coveredlines": 54, "coverablelines": 58, "totallines": 512, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 16, "totalmethods": 16 },
         { "name": "UserManager", "coverage": 100, "coveredlines": 41, "coverablelines": 41, "totallines": 76, "branchcoverage": null, "coveredbranches": 0, "totalbranches": 0, "methodcoverage": 100, "coveredmethods": 14, "totalmethods": 14 } ] } ]
   }

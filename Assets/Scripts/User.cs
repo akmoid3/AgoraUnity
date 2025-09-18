@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class User
@@ -9,6 +10,9 @@ public class User
    private GameObject anchor;
    private bool isHandRaised = false;
    private Animator animator;
+   
+
+   public event Action<string> OnRtmIdAvailable;
 
    public bool IsHandRaised
    {
@@ -46,8 +50,13 @@ public class User
    public string RtmID
    {
       get => rtmID;
-      set => rtmID = value;
+      set
+      {
+         rtmID = value;
+         OnRtmIdAvailable?.Invoke(rtmID);
+      }
    }
+
 
    public string RtcID
    {
